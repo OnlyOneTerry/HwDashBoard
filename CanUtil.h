@@ -3,7 +3,10 @@
 #include <QObject>
 #include <QThread>
 
-#include "component/battery_cluster_comp/battery_cluster_comp.hpp"
+//#include "component/battery_cluster_comp/battery_cluster_comp.hpp"
+#include "component/vcu_cluster_comp/vcu_cluster_comp.hpp"
+#include "idl/vcu_idl/VcuMsg.h"
+
 using namespace srvcomps;
 
 class CanUtil: public  QThread
@@ -12,8 +15,9 @@ class CanUtil: public  QThread
 public:
     CanUtil();
     ~CanUtil();
+    void showData(VcuMsg* msg);
 signals:
-    void signalTest(int num);
+    void signalTest(unsigned char num);
 protected:
     void run();
 private:

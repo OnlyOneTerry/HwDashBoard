@@ -11,23 +11,27 @@ CanUtil::~CanUtil()
     this->wait();
 }
 
+void CanUtil::showData(VcuMsg *msg)
+{
+    std::cout << "Data handler ShowData()..." << std::endl;
+}
+
 void CanUtil::run()
 {
-    BatteryClusterComp bcc;
+    VcuClusterComp bcc;
 
-    hb_ =[this](const void* arg1,void* arg2)
+    hb_ =[this](const void* srv_msg,void* user_arg)
     {
-        std::cout<<"arg1 is :"<<arg1<<"arg2 is :"<<arg2<<std::endl;
-        emit this->signalTest(num_);
+        VcuMsg* bat_msg = (VcuMsg*)srv_msg;
+        showData(bat_msg);
+        emit this->signalTest(bat_msg->speed());
     };
 
     void* arg1 = nullptr;
-    void* arg2 = nullptr;
-
-    DataHandler* data_handler_ = new DataHandler(hb_,arg1,arg2);
-
-    bcc.RegisterDataHandler(data_handler_);
     bcc.Create();
+    DataHandler* data_handler_ = new DataHandler(hb_,arg1);
+    bcc.RegisterDataHandler(data_handler_);
+
 
     ServiceLifeCycle life;
     bcc.Consume(life);

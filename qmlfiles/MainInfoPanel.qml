@@ -24,6 +24,37 @@ Rectangle {
     }
 
     Rectangle{
+        id:gearRect
+        x:(root.width-width)/2
+        y:18
+        width: 47
+        height:47
+        color:bgcolor
+        Text {
+            id: gearTxt
+            color: "white"
+            font.pixelSize: 52
+            font.weight: Font.Bold
+            text: qsTr("D")
+        }
+    }
+
+    Rectangle{
+        id:rightTurnRect
+        x:586;
+        y:18;
+        width: 64;
+        height: 64;
+        color:bgcolor
+        Image {
+            id: rightimg
+            width:64
+            height:64
+            source: "./rightArrow.png"
+        }
+    }
+    /*
+    Rectangle{
         id:dayLight
         x:71
         y:leftTurnRect.y+width+10;
@@ -348,6 +379,6 @@ Rectangle {
             anchors.centerIn: parent
         }
 
-    }
+    }*/
 
 }

@@ -62,6 +62,8 @@ target_compile_definitions(HWDashBoard
 target_link_libraries(HWDashBoard
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick
   srv_component fastrtps
+  BatteryMsg_lib CanMsg_lib VcuMsg_lib
+  underlying_can_interface underlying_pubsub_interface
   )
 
 set_target_properties(HWDashBoard PROPERTIES

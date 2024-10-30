@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>qmlfiles/bluetooth.png</file>
+        <file>qmlfiles/bg.png</file>
         <file>qmlfiles/Head.qml</file>
         <file>qmlfiles/leftArrow.png</file>
         <file>qmlfiles/main.qml</file>
@@ -9,5 +10,6 @@
         <file>qmlfiles/rightArrow.png</file>
         <file>qmlfiles/SpeedPanel.qml</file>
         <file>qmlfiles/wifi.png</file>
+        <file>qmlfiles/DashboardGaugeStyle.qml</file>
     </qresource>
 </RCC>
