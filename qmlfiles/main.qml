@@ -1,6 +1,7 @@
 
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Window 2.12
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtGraphicalEffects 1.0
@@ -26,19 +27,17 @@ ApplicationWindow {
         y:0;
     }
 
+    Battery{
+        x:20
+        y:72+15
+    }
 
-    Item{
-        id:leftTurnRect
+    TurnLight{
+        id:leftTurnLight
         x:364;
         y:18+72;
-        width: 64;
-        height: 64;
-        Image {
-            id: leftimg
-            width:64
-            height:64
-            source: "./leftArrow.png"
-        }
+        source_path: "./leftArrow.png"
+        on:true
     }
 
     Item{
@@ -56,25 +55,23 @@ ApplicationWindow {
         }
     }
 
-    Item{
-        id:rightTurnRect
+    Text {
+        id: readyTxt
+        x:(parent.width-width)/2;
+        y:18+72+64
+        color:"white"; //"#00cc00"
+        font.pixelSize: 64
+        font.weight: Font.Bold
+        text: qsTr("READY")
+    }
+
+
+    TurnLight{
+        id:rightTurnLight
         x:1024-364-64;
         y:18+72;
-        width: 64;
-        height: 64;
-        Image {
-            id: rightimg
-            width:64
-            height:64
-            source: "./rightArrow.png"
-        }
+        source_path: "./rightArrow.png"
     }
-/*
-    MainInfoPanel{
-        id:mainInfoPanlel
-        x:0;
-        y:72;
-    }*/
 
     SpeedPanel{
         id:speedPanel
@@ -83,12 +80,32 @@ ApplicationWindow {
     }
 
 
-
-    PowerPanel{
+    RpmPanel{
         id:rpmPanel
         x:0;
         y: (parent.height+72 -height)/2;
     }
+
+    CurvedRectangle{
+        width: 300
+        height: 100
+        color: "black"
+        cornersRadius: [50,50,0,0]
+        borderWidth: 1
+        borderColor: "grey"
+        x:(parent.width-width)/2;
+        y:parent.height-100;
+        Text {
+            id: totalMiles
+            x:(parent.width-width)/2;
+            y:parent.height-80;
+            text: qsTr("3000km")
+            font.bold: false
+            font.pixelSize: 35;
+            color: "white"
+        }
+    }
+
 
 
 

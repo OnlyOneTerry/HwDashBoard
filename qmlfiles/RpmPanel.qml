@@ -8,7 +8,7 @@ Item {
     width: 364;
     height: 364;
    // color:"#999"
-     property int currentPower: 0
+     property int currentRpm: 0
     Rectangle {
         id:powerRect
         width: 364
@@ -23,12 +23,16 @@ Item {
 
         CircularGauge {
             id: powerPanel
-            value: 10;//valueSource.kph
+            value: currentRpm
             anchors.centerIn: parent
             maximumValue: 100
             width: height
             height: parent.height
 
+            // 动画效果
+            Behavior on value {
+                NumberAnimation { duration: 600; easing.type: Easing.InOutQuad }
+            }
 
             style:  CircularGaugeStyle {
                 tickmarkLabel: Text{
@@ -45,6 +49,14 @@ Item {
                         var ctx = getContext("2d");
                         ctx.reset();
                        // paintBackground(ctx);
+                    }
+
+                    Text {
+                        text: "x1000"
+                        color: "white"
+                        font.pixelSize: 0.16* outerRadius
+                        y:65
+                        anchors.horizontalCenter: parent.horizontalCenter
                     }
 
                     Text {
@@ -67,7 +79,17 @@ Item {
                         anchors.top: powerText.bottom
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
+
                 }
+            }
+
+        }
+
+        // 模拟仪表盘变化
+        Timer {
+            interval: 1000; running: true; repeat: true
+            onTriggered: {
+                currentRpm = Math.random() * 180 - 90;  // 随机转动指针
             }
         }
     }

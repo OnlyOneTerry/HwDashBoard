@@ -59,8 +59,9 @@ CircularGaugeStyle {
 
     tickmarkLabel: Text{
         font.pixelSize: Math.max(6,toPixels(0.16));
+        font.bold: true
         text: styleData.value
-        color: "yellow"
+        color: "white"
         antialiasing: true
     }
 
@@ -115,6 +116,34 @@ CircularGaugeStyle {
         ctx.fillStyle = gradient;
         ctx.arc(xCenter, yCenter, outerRadius - tickmarkInset, outerRadius - tickmarkInset, 0, Math.PI * 2);
         ctx.fill();
+
+        //绘制警告线
+        var centerX = ctx.canvas.width / 2;
+        var centerY = ctx.canvas.height / 2;
+        var radius = Math.min(centerX, centerY) - 30;
+        var warn_start_angle = Math.PI*2/20*12+Math.PI/2;
+        var warn_end_angle = Math.PI*2/20*18+Math.PI/2;
+        ctx.beginPath();
+        ctx.arc(centerX,centerY,radius-15,warn_start_angle,warn_end_angle,false);
+        ctx.lineWidth = 50;
+        ctx.strokeStyle = "red";
+        ctx.stroke();
+
+        warn_start_angle = Math.PI*2/20*6+Math.PI/2;
+        warn_end_angle = Math.PI*2/20*12+Math.PI/2;
+        ctx.beginPath();
+        ctx.arc(centerX,centerY,radius-15,warn_start_angle,warn_end_angle,false);
+        ctx.lineWidth = 50;
+        ctx.strokeStyle = "blue";
+        ctx.stroke();
+
+        warn_start_angle = Math.PI*2/20*2+ Math.PI/2;
+        warn_end_angle = Math.PI*2/20*6 + Math.PI/2;
+        ctx.beginPath();
+        ctx.arc(centerX,centerY,radius-15,warn_start_angle,warn_end_angle,false);
+        ctx.lineWidth = 50;
+        ctx.strokeStyle = "green";
+        ctx.stroke();
 
     }
 

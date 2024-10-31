@@ -23,25 +23,17 @@ Item {
         x:parent.width - width;
         CircularGauge {
             id: spPanel
-            value: currentSpeed;//valueSource.kph
+            value: currentSpeed;
             anchors.centerIn: parent
-            maximumValue: 180
+            maximumValue: 200
             width: height
             height: parent.height
             style: DashboardGaugeStyle {}
-
             // 动画效果
             Behavior on value {
                 NumberAnimation { duration: 600; easing.type: Easing.InOutQuad }
             }
         }
 
-    }
-    // 模拟仪表盘变化
-    Timer {
-        interval: 1000; running: true; repeat: true
-        onTriggered: {
-            currentSpeed = Math.random() * 180 - 90;  // 随机转动指针
-        }
     }
 }

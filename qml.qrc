@@ -6,10 +6,13 @@
         <file>qmlfiles/leftArrow.png</file>
         <file>qmlfiles/main.qml</file>
         <file>qmlfiles/MainInfoPanel.qml</file>
-        <file>qmlfiles/PowerPanel.qml</file>
+        <file>qmlfiles/RpmPanel.qml</file>
         <file>qmlfiles/rightArrow.png</file>
         <file>qmlfiles/SpeedPanel.qml</file>
         <file>qmlfiles/wifi.png</file>
         <file>qmlfiles/DashboardGaugeStyle.qml</file>
+        <file>qmlfiles/Battery.qml</file>
+        <file>qmlfiles/CurvedRectangle.qml</file>
+        <file>qmlfiles/TurnLight.qml</file>
     </qresource>
 </RCC>
