@@ -8,7 +8,6 @@ import QtGraphicalEffects 1.0
 
 CircularGauge {
     id: gauge
-
     // Define the radius and angle for the arc
     property real arcAngle: 180  // Angle in degrees
     property real arcRadius: 90
@@ -25,9 +24,8 @@ CircularGauge {
 
     style: CircularGaugeStyle {
         labelStepSize: 10
-        labelInset: outerRadius / 2.2
-        tickmarkInset: outerRadius / 4.2
-
+        labelInset: outerRadius*0.02
+        tickmarkInset: outerRadius*0.12
         minorTickmarkInset: outerRadius / 4.2
         minimumValueAngle: -155
         maximumValueAngle: 155
@@ -37,22 +35,22 @@ CircularGauge {
             implicitWidth: gauge.width
             color: "#000000"
             anchors.centerIn: parent
-            radius: 360
+            // radius: 360
 
             // Create a Rotation item to move the Image along the arc
             // Image to move along the arc
-            Image {
-                sourceSize: Qt.size(16, 17)
-                source: "qrc:/img/maxLimit.png"
+            //            Image {
+            //                sourceSize: Qt.size(16, 17)
+            //                source: "qrc:/img/maxLimit.png"
 
-                // Translate the Image along the arc
-                x: arcRadius * Math.cos(Math.PI * arcAngle / 180)
-                y: arcRadius * Math.sin(Math.PI * arcAngle / 180)
+            //                // Translate the Image along the arc
+            //                x: arcRadius * Math.cos(Math.PI * arcAngle / 180)
+            //                y: arcRadius * Math.sin(Math.PI * arcAngle / 180)
 
-                // Set the pivot to the bottom center of the Image
-                anchors.bottom: circularCanva.top
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
+            //                // Set the pivot to the bottom center of the Image
+            //                anchors.bottom: circularCanva.top
+            //                anchors.horizontalCenter: parent.horizontalCenter
+            //            }
             Canvas {
                 id:circularCanva
                 property int value: gauge.value
@@ -163,6 +161,7 @@ CircularGauge {
 
 
             Canvas {
+                id:canvas
                 property int value: gauge.value
 
                 anchors.fill: parent
@@ -214,6 +213,18 @@ CircularGauge {
                                 degreesToRadians(endAngle));
                         ctx.stroke();
                     }
+
+                    //out ring
+                    var centerX = canvas.width / 2;
+                    var centerY = canvas.height / 2;
+                    var radius = Math.min(centerX, centerY);
+                    var start_angle = 0;
+                    var end_angle = Math.PI*2;
+                    ctx.beginPath();
+                    ctx.arc(centerX,centerY,radius,start_angle,end_angle,false);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = "#66ff33";
+                    ctx.stroke();
                 }
             }
 
@@ -232,69 +243,66 @@ CircularGauge {
             }
 
             Glow {
-              anchors.fill: needle
-              radius: 5
-              samples: 10
-              color: "white"
-              source: needle
-          }
+                anchors.fill: needle
+                radius: 5
+                samples: 10
+                color: "white"
+                source: needle
+            }
         }
 
         foreground: Item {
             anchors.centerIn: parent
-            Image{
+            Image {
+                sourceSize: Qt.size(203,203)
                 anchors.centerIn: parent
-                source: "qrc:/img/Ellipse 1.png"
+                source: "qrc:/img/Subtract.png"
 
                 Image {
-                    sourceSize: Qt.size(203,203)
+                    z:2
+                    sourceSize: Qt.size(147,147)
                     anchors.centerIn: parent
-                    source: "qrc:/img/Subtract.png"
+                    source: "qrc:/img/Ellipse 6.png"
 
-                    Image {
-                        z:2
-                        sourceSize: Qt.size(147,147)
+
+                    ColumnLayout{
                         anchors.centerIn: parent
-                        source: "qrc:/img/Ellipse 6.png"
+                        Label{
+                            text: gauge.value.toFixed(0)
+                            font.pixelSize: 65
+                            font.family: "Inter"
+                            color: "#FFFFFF"
+                            font.bold: Font.DemiBold
+                            Layout.alignment: Qt.AlignHCenter
+                        }
 
-
-                        ColumnLayout{
-                            anchors.centerIn: parent
-                            Label{
-                                text: gauge.value.toFixed(0)
-                                font.pixelSize: 65
-                                font.family: "Inter"
-                                color: "#FFFFFF"
-                                font.bold: Font.DemiBold
-                                Layout.alignment: Qt.AlignHCenter
-                            }
-
-                            Label{
-                                text: "km/h"
-                                font.pixelSize: 18
-                                font.family: "Inter"
-                                color: "#FFFFFF"
-                                opacity: 0.4
-                                font.bold: Font.Normal
-                                Layout.alignment: Qt.AlignHCenter
-                            }
+                        Label{
+                            text: "km/h"
+                            font.pixelSize: 18
+                            font.family: "Inter"
+                            color: "#FFFFFF"
+                            opacity: 0.4
+                            font.bold: Font.Normal
+                            Layout.alignment: Qt.AlignHCenter
                         }
                     }
                 }
             }
         }
 
+
         tickmarkLabel:  Text {
-            visible: false
-            font.pixelSize: Math.max(6, outerRadius * 0.05)
+            visible: true
+            font.pixelSize: Math.max(6, outerRadius * 0.15)
             text: styleData.value
             color: styleData.value <= gauge.value ? "white" : "#777776"
             antialiasing: true
+            font.bold: true
         }
 
         tickmark:Rectangle {
-            implicitWidth: outerRadius * 0.008
-            implicitHeight: outerRadius * 0.05
+            implicitWidth: outerRadius * 0.018
+            implicitHeight: outerRadius * 0.15
 
             antialiasing: true
             smooth: true

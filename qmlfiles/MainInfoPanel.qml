@@ -17,7 +17,7 @@ Item {
         id:leftTurnLight
         x:200;
         y:18;
-        source_path: "./leftArrow.png"
+        source_path: "qrc:/img/leftArrow.png"
         on:true
     }
 
@@ -25,24 +25,99 @@ Item {
         id:rightTurnLight
         x:1024-200-width;
         y:18;
-        source_path: "./rightArrow.png"
+        source_path: "qrc:/img/rightArrow.png"
     }
 
     DashedCircle{
+        id:trip
         x:20
         y:60
-        width: 200
-        height: 200
+        width: 220
+        height: 220
         cirleSegmentCount:4
+
+        Item{
+            id:txtArea
+            width: parent.width-70
+            height: parent.height-70
+            anchors.centerIn: parent
+            Row{
+                Text {
+                    id: tripmile
+                    text: qsTr("286.5")
+                    font.pixelSize: 40
+                    font.bold: false
+                    color: "white"
+                }
+                Text {
+                    id:tripunit
+                    text: qsTr("mile\nkm")
+                    color: "white"
+                    font.pixelSize: 18
+                }
+                x:(parent.width-width)/2;
+                y:(parent.height-height)/2-20;
+            }
+            Text {
+                id: triptag
+                text: qsTr("TRIP")
+                font.pixelSize: 40
+                font.bold: true
+                color: "white"
+                x:(parent.width-width)/2;
+                y:(parent.height-height)-20;
+            }
+        }
     }
 
     DashedCircle{
+        id:dod
         x:parent.width-width-20
         y:60
-        width: 200
-        height: 200
+        width: 220
+        height: 220
         cirleSegmentCount:8
+
+        Item{
+            id:txtDod
+            width: parent.width-70
+            height: parent.height-70
+            anchors.centerIn: parent
+            Row{
+                Text {
+                    id: dodmile
+                    text: qsTr("26792")
+                    font.pixelSize: 40
+                    font.bold: false
+                    color: "white"
+                }
+                Text {
+                    id:dodunit
+                    text: qsTr("mile\nkm")
+                    color: "white"
+                    font.pixelSize: 18
+                }
+                x:(parent.width-width)/2;
+                y:(parent.height-height)/2-20;
+            }
+            Text {
+                id: dodtag
+                text: qsTr("DOD")
+                font.pixelSize: 40
+                font.bold: true
+                color: "white"
+                x:(parent.width-width)/2;
+                y:(parent.height-height)-20;
+            }
+        }
     }
+
+//    SpeedPanel{
+//        width: 400
+//        height: 400
+//        x:(parent.width-width)/2
+//        y:10
+//    }
 
     CustomCircleGauge{
         id:rightGuage
@@ -52,7 +127,7 @@ Item {
         x:(parent.width-width)/2
         y:10
         value: accelerating ? maximumValue : 0
-        maximumValue: 180
+        maximumValue: 120
         Component.onCompleted: forceActiveFocus()
         Behavior on value { NumberAnimation { duration: 1000 }}
         Keys.onSpacePressed: leftGuage.accelerating = true

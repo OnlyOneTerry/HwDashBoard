@@ -52,10 +52,11 @@ import QtQuick 2.12
 import QtQuick.Controls.Styles 1.4
 
 CircularGaugeStyle {
-    tickmarkInset: toPixels(0.02)
-    minorTickmarkInset: tickmarkInset
+    tickmarkInset: toPixels(0.01)
+    minorTickmarkInset: toPixels(0.03);//tickmarkInset
     labelStepSize: 20
-    labelInset: toPixels(0.23)
+    labelInset: -toPixels(0.13)
+
 
     tickmarkLabel: Text{
         font.pixelSize: Math.max(6,toPixels(0.16));
@@ -67,10 +68,10 @@ CircularGaugeStyle {
 
     property real xCenter: outerRadius
     property real yCenter: outerRadius
-    property real needleLength: outerRadius - tickmarkInset * 1.25
+    property real needleLength: outerRadius - tickmarkInset*0.3 //* 1.25
     property real needleTipWidth: toPixels(0.02)
     property real needleBaseWidth: toPixels(0.06)
-    property bool halfGauge: false
+    property bool halfGauge: true
 
     function toPixels(percentage) {
         return percentage * outerRadius;
@@ -102,11 +103,11 @@ CircularGaugeStyle {
         ctx.arc(xCenter, yCenter, outerRadius - ctx.lineWidth / 2, outerRadius - ctx.lineWidth / 2, 0, Math.PI * 2);
         ctx.stroke();
 
-        ctx.beginPath();
-        ctx.lineWidth = tickmarkInset / 2;
-        ctx.strokeStyle = "white";
-        ctx.arc(xCenter, yCenter, outerRadius - ctx.lineWidth / 2, outerRadius - ctx.lineWidth / 2, 0, Math.PI * 2);
-        ctx.stroke();
+//        ctx.beginPath();
+//        ctx.lineWidth = 1.0;//tickmarkInset / 2;
+//        ctx.strokeStyle = "white";
+//        ctx.arc(xCenter, yCenter, outerRadius - ctx.lineWidth / 2, outerRadius - ctx.lineWidth / 2, 0, Math.PI * 2);
+//        ctx.stroke();
 
         ctx.beginPath();
         var gradient = ctx.createRadialGradient(xCenter, yCenter, 0, xCenter, yCenter, outerRadius * 1.5);

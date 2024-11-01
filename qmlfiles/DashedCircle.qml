@@ -35,20 +35,21 @@ Rectangle {
             gradient.addColorStop(1,"red");
 
             var step = 32/cirleSegmentCount;
+            var adjustVal = Math.PI/14;
             if(cirleSegmentCount == 4)
             {
                 for(var i = 0;i<cirleSegmentCount;i++)
                 {
-                    var start_angle = Math.PI*2/32*(i*step);
-                    var end_angle = Math.PI*2/32*(i*step+6);
+                    var start_angle = Math.PI*2/32*(i*step)+adjustVal;
+                    var end_angle = Math.PI*2/32*(i*step+6)+adjustVal;
                     ctx.beginPath();
                     ctx.arc(centerX,centerY,radius-5,start_angle,end_angle,false);
                     ctx.lineWidth = cirlelineWidth;
                     ctx.strokeStyle = "#66ff33";
                     ctx.stroke();
 
-                    start_angle = Math.PI*2/32*(i*step+6);
-                    end_angle = Math.PI*2/32*(i*step+8);
+                    start_angle = Math.PI*2/32*(i*step+6)+adjustVal;
+                    end_angle = Math.PI*2/32*(i*step+8)+adjustVal;
                     ctx.beginPath();
                     ctx.arc(centerX,centerY,radius-5,start_angle,end_angle,false);
                     ctx.lineWidth = cirlelineWidth;
@@ -61,16 +62,16 @@ Rectangle {
             {
                 for(var j = 0;j<cirleSegmentCount;j++)
                 {
-                    start_angle = Math.PI*2/32*(j*step);
-                    end_angle = Math.PI*2/32*(j*step+2);;
+                    start_angle = Math.PI*2/32*(j*step)+adjustVal;
+                    end_angle = Math.PI*2/32*(j*step+2)+adjustVal;
                     ctx.beginPath();
                     ctx.arc(centerX,centerY,radius-5,start_angle,end_angle,false);
                     ctx.lineWidth = cirlelineWidth;
                     ctx.strokeStyle = "#66ff33";
                     ctx.stroke();
 
-                    start_angle = Math.PI*2/32*(j*step+2);
-                    end_angle = Math.PI*2/32*(j*step+4);
+                    start_angle = Math.PI*2/32*(j*step+2)+adjustVal;
+                    end_angle = Math.PI*2/32*(j*step+4)+adjustVal;
                     ctx.beginPath();
                     ctx.arc(centerX,centerY,radius-5,start_angle,end_angle,false);
                     ctx.lineWidth = cirlelineWidth;

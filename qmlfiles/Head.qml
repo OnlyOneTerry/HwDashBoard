@@ -29,14 +29,14 @@ Rectangle {
         y:18;
         width: 36;
         height: 36;
-        source: "./bluetooth.png";
+        source: "qrc:/img/bluetooth.png";
     }
 
     Image {
         id: wifi
         x:1024-36-100;
         y:18;
-        source: "./wifi.png"
+        source: "qrc:/img/wifi.png"
         width: 36;
         height: 36;
     }
