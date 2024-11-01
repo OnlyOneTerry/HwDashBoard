@@ -18,10 +18,15 @@ public:
     void showData(VcuMsg* msg);
 signals:
     void signalTest(unsigned char num);
+    void signalSpeed(unsigned char value);
+    void signalDriveMode(unsigned char value);
+    void signalRpm(unsigned char value);
+    void signalGear(unsigned char value);
+    void signalPower(uint value);
 protected:
     void run();
 private:
-   int num_ = 0;
+
    HandlerCb hb_;
 };
 

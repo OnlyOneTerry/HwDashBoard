@@ -52,7 +52,7 @@ import QtQuick 2.12
 import QtQuick.Controls.Styles 1.4
 
 CircularGaugeStyle {
-    tickmarkInset: toPixels(0.04)
+    tickmarkInset: toPixels(0.02)
     minorTickmarkInset: tickmarkInset
     labelStepSize: 20
     labelInset: toPixels(0.23)
@@ -104,7 +104,7 @@ CircularGaugeStyle {
 
         ctx.beginPath();
         ctx.lineWidth = tickmarkInset / 2;
-        ctx.strokeStyle = "blue";
+        ctx.strokeStyle = "white";
         ctx.arc(xCenter, yCenter, outerRadius - ctx.lineWidth / 2, outerRadius - ctx.lineWidth / 2, 0, Math.PI * 2);
         ctx.stroke();
 

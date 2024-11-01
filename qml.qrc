@@ -14,5 +14,25 @@
         <file>qmlfiles/Battery.qml</file>
         <file>qmlfiles/CurvedRectangle.qml</file>
         <file>qmlfiles/TurnLight.qml</file>
+        <file>qmlfiles/testMainBoard.qml</file>
+        <file>qmlfiles/CustomCircleGauge.qml</file>
+        <file>img/background.png</file>
+        <file>img/bg.png</file>
+        <file>img/bluetooth.png</file>
+        <file>img/cirlcle.png</file>
+        <file>img/Ellipse 1.png</file>
+        <file>img/Ellipse 5.png</file>
+        <file>img/Ellipse 6.png</file>
+        <file>img/leftArrow.png</file>
+        <file>img/maxLimit.png</file>
+        <file>img/needle.png</file>
+        <file>img/Rectangle 4.png</file>
+        <file>img/rightArrow.png</file>
+        <file>img/ring.png</file>
+        <file>img/sub.png</file>
+        <file>img/Subtract.png</file>
+        <file>img/tickmark.png</file>
+        <file>img/wifi.png</file>
+        <file>qmlfiles/DashedCircle.qml</file>
     </qresource>
 </RCC>

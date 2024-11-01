@@ -38,7 +38,8 @@ Item {
                 tickmarkLabel: Text{
                     font.pixelSize: Math.max(6,0.16* outerRadius);
                     text: styleData.value
-                    color: "yellow"
+                    color: "white"
+                    font.bold: true
                     antialiasing: true
                 }
 

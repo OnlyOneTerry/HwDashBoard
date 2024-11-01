@@ -7,14 +7,14 @@ import QtGraphicalEffects 1.0
 Item {
     id:root
     property real batteryLevel: 0.6
-    property real borderWidth: 6
-    property color borderColor: "#aaaaaa"
+    property real borderWidth: 3
+    property color borderColor: "white"//"#aaaaaa"
     property color nomalLevelColor: "#4CAF50"
     property color lowLevelColor: "#FFC107"
     property color lowerLevelColor: "red"
 
-    width: 120
-    height: 60
+    width: 60
+    height: 36
 
     // 电池体
     Rectangle {
@@ -22,7 +22,7 @@ Item {
         width: parent.width - 2 * borderWidth
         height: parent.height - 2 * borderWidth
         anchors.centerIn: parent
-        color: borderColor
+        color: "transparent" //borderColor
         border.color: borderColor // 设置边界线颜色
         border.width: borderWidth // 设置边界线宽度
         radius:10
