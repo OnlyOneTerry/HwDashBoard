@@ -45,7 +45,7 @@ Rectangle {
                     ctx.beginPath();
                     ctx.arc(centerX,centerY,radius-5,start_angle,end_angle,false);
                     ctx.lineWidth = cirlelineWidth;
-                    ctx.strokeStyle = "#66ff33";
+                    ctx.strokeStyle = "#31DBEE";
                     ctx.stroke();
 
                     start_angle = Math.PI*2/32*(i*step+6)+adjustVal;
@@ -67,7 +67,7 @@ Rectangle {
                     ctx.beginPath();
                     ctx.arc(centerX,centerY,radius-5,start_angle,end_angle,false);
                     ctx.lineWidth = cirlelineWidth;
-                    ctx.strokeStyle = "#66ff33";
+                    ctx.strokeStyle = "#31DBEE";
                     ctx.stroke();
 
                     start_angle = Math.PI*2/32*(j*step+2)+adjustVal;

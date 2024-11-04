@@ -122,10 +122,10 @@ Item {
     CustomCircleGauge{
         id:rightGuage
         property bool accelerating
-        width: 400
-        height: 400
+        width: 500
+        height: 500
         x:(parent.width-width)/2
-        y:10
+        y:-40
         value: accelerating ? maximumValue : 0
         maximumValue: 120
         Component.onCompleted: forceActiveFocus()

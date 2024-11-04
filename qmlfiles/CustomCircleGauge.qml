@@ -24,33 +24,18 @@ CircularGauge {
 
     style: CircularGaugeStyle {
         labelStepSize: 10
-        labelInset: outerRadius*0.02
-        tickmarkInset: outerRadius*0.12
-        minorTickmarkInset: outerRadius / 4.2
-        minimumValueAngle: -155
-        maximumValueAngle: 155
+        labelInset: outerRadius*0.10
+        tickmarkInset: outerRadius*0.16
+        minorTickmarkInset: outerRadius*0.18
+        minimumValueAngle:-90 //-155
+        maximumValueAngle:90 //155
 
         background:Rectangle {
             implicitHeight: gauge.height
             implicitWidth: gauge.width
             color: "#000000"
             anchors.centerIn: parent
-            // radius: 360
 
-            // Create a Rotation item to move the Image along the arc
-            // Image to move along the arc
-            //            Image {
-            //                sourceSize: Qt.size(16, 17)
-            //                source: "qrc:/img/maxLimit.png"
-
-            //                // Translate the Image along the arc
-            //                x: arcRadius * Math.cos(Math.PI * arcAngle / 180)
-            //                y: arcRadius * Math.sin(Math.PI * arcAngle / 180)
-
-            //                // Set the pivot to the bottom center of the Image
-            //                anchors.bottom: circularCanva.top
-            //                anchors.horizontalCenter: parent.horizontalCenter
-            //            }
             Canvas {
                 id:circularCanva
                 property int value: gauge.value
@@ -147,13 +132,13 @@ CircularGauge {
                         var angle = startAngle + (endAngle - startAngle) * (i / (gradientColors.length - 1));
 
                         ctx.beginPath();
-                        ctx.lineWidth = outerRadius * 0.15;
+                        ctx.lineWidth = outerRadius * 0.08;
                         ctx.strokeStyle = gradient;
                         ctx.arc(outerRadius,
                                 outerRadius,
-                                outerRadius - 75,
-                                degreesToRadians(angle),
-                                degreesToRadians(endAngle));
+                                outerRadius - 75-10,
+                                degreesToRadians(-180),//angle
+                                degreesToRadians(0));//endAngle
                         ctx.stroke();
                     }
                 }
@@ -204,11 +189,11 @@ CircularGauge {
                         var angle = startAngle + (endAngle - startAngle) * (i / (gradientColors.length - 1));
 
                         ctx.beginPath();
-                        ctx.lineWidth = outerRadius * 0.15;
+                        ctx.lineWidth = outerRadius * 0.13;
                         ctx.strokeStyle = gradient;
                         ctx.arc(outerRadius,
                                 outerRadius,
-                                outerRadius - 75,
+                                outerRadius - 75-10,
                                 degreesToRadians(angle),
                                 degreesToRadians(endAngle));
                         ctx.stroke();
@@ -217,22 +202,78 @@ CircularGauge {
                     //out ring
                     var centerX = canvas.width / 2;
                     var centerY = canvas.height / 2;
-                    var radius = Math.min(centerX, centerY);
+                    var radius = Math.min(centerX, centerY)-3;
                     var start_angle = 0;
                     var end_angle = Math.PI*2;
                     ctx.beginPath();
                     ctx.arc(centerX,centerY,radius,start_angle,end_angle,false);
                     ctx.lineWidth = 2;
-                    ctx.strokeStyle = "#66ff33";
+                    ctx.strokeStyle = "#31DBEE";
                     ctx.stroke();
+
+                    //BATTERY?
+                    var adjustVal = 0;
+                    var k = 0;
+                    for(var j = 0;j<6;j++)
+                    {
+                        start_angle = Math.PI*2/24*k+adjustVal;
+                        k=k+0.2;
+                        end_angle = Math.PI*2/24*k+adjustVal;
+                        ctx.beginPath();
+                        ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
+                        ctx.lineWidth = outerRadius * 0.13;
+                        ctx.strokeStyle = "black";
+                        ctx.stroke();
+
+                        start_angle = Math.PI*2/24*k+adjustVal;
+                        k=k+0.6;
+                        end_angle = Math.PI*2/24*k+adjustVal;
+                        ctx.beginPath();
+                        ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
+                        ctx.lineWidth = outerRadius * 0.13;
+                        ctx.strokeStyle = "#0AFFE8";
+                        ctx.stroke();
+                    }
+
+                    //temperature
+                    k = 7;
+                    for(var j = 0;j<6;j++)
+                    {
+                        start_angle = Math.PI*2/24*k+adjustVal;
+                        k=k+0.2;
+                        end_angle = Math.PI*2/24*k+adjustVal;
+                        ctx.beginPath();
+                        ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
+                        ctx.lineWidth = outerRadius * 0.13;
+                        ctx.strokeStyle = "black";
+                        ctx.stroke();
+
+
+                        start_angle = Math.PI*2/24*k+adjustVal;
+                        k=k+0.6;
+                        end_angle = Math.PI*2/24*k+adjustVal;
+                        ctx.beginPath();
+                        ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
+                        ctx.lineWidth = outerRadius * 0.13;
+                        if(k<9)
+                        {
+                            ctx.strokeStyle = "#0AFFE8";
+                        }
+                        else
+                        {
+                            ctx.strokeStyle = "#ffffff";
+                        }
+
+
+                        ctx.stroke();
+                    }
                 }
             }
-
         }
 
 
         needle: Item {
-            y: -outerRadius * 0.70
+            y: -outerRadius * 0.90
             height: outerRadius * 0.02
             Image {
                 id: needle
@@ -252,57 +293,82 @@ CircularGauge {
         }
 
         foreground: Item {
-            anchors.centerIn: parent
-            Image {
-                sourceSize: Qt.size(203,203)
-                anchors.centerIn: parent
-                source: "qrc:/img/Subtract.png"
+            id:foregroundArea
 
-                Image {
-                    z:2
-                    sourceSize: Qt.size(147,147)
-                    anchors.centerIn: parent
-                    source: "qrc:/img/Ellipse 6.png"
+            Label{
+                text: "x1000/min"
+                font.pixelSize: 20
+                font.family: "Inter"
+                color: "#FFFFFF"
+                font.bold: Font.DemiBold
+                x:(parent.width-width)/2;
+                y:130
+            }
 
+            ColumnLayout{
+                x:(parent.width-width)/2;
+                y:200
 
-                    ColumnLayout{
-                        anchors.centerIn: parent
-                        Label{
-                            text: gauge.value.toFixed(0)
-                            font.pixelSize: 65
-                            font.family: "Inter"
-                            color: "#FFFFFF"
-                            font.bold: Font.DemiBold
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-
-                        Label{
-                            text: "km/h"
-                            font.pixelSize: 18
-                            font.family: "Inter"
-                            color: "#FFFFFF"
-                            opacity: 0.4
-                            font.bold: Font.Normal
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                    }
+                Label{
+                    text: gauge.value.toFixed(0)
+                    font.pixelSize: 85
+                    font.family: "Inter"
+                    color: "#FFFFFF"
+                    font.bold: Font.DemiBold
+                    Layout.alignment: Qt.AlignHCenter
                 }
+                Label{
+                    text: "mph"
+                    font.pixelSize: 28
+                    font.family: "Inter"
+                    color: "#FFFFFF"
+                    opacity: 1
+                    font.bold: Font.Normal
+                    Layout.alignment: Qt.AlignHCenter
+                }
+                Label{
+                    text: "km/h"
+                    font.pixelSize: 28
+                    font.family: "Inter"
+                    color: "#FFFFFF"
+                    opacity: 1
+                    font.bold: Font.Normal
+                    Layout.alignment:Qt.AlignHCenter
+                }
+            }
+
+            Image {
+                id: temperImg
+                width: 40
+                height:40
+                x:50
+                y:350
+                source: "qrc:/img/colder_overhot_dis.png"
+            }
+
+            Image {
+                id: pluginImg
+                width: 40
+                height:40
+                x:415
+                y:350
+                source: "qrc:/img/plugged_in.png"
             }
         }
 
 
         tickmarkLabel:  Text {
             visible: true
-            font.pixelSize: Math.max(6, outerRadius * 0.15)
-            text: styleData.value
+            font.pixelSize: Math.max(6, outerRadius * 0.10)
+            text: styleData.value/10
             color: styleData.value <= gauge.value ? "white" : "#777776"
             antialiasing: true
             font.bold: true
         }
 
         tickmark:Rectangle {
-            implicitWidth: outerRadius * 0.018
-            implicitHeight: outerRadius * 0.15
+            implicitWidth: outerRadius * 0.008
+            implicitHeight: outerRadius * 0.10
 
             antialiasing: true
             smooth: true
