@@ -34,6 +34,5 @@ ApplicationWindow {
             console.log("the num from signal is :",num);
         }
     }
-
 }
 

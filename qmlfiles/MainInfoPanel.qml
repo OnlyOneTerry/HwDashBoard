@@ -145,6 +145,125 @@ Item {
         }
     }
 
+    Image {
+        id: leftbg
+        source: "qrc:/img/leftbg.png"
+        x:0
+        y:300
+        width: 300
+        height:188
+    }
+
+    Image {
+        id: rightbg
+        source: "qrc:/img/rightbg.png"
+        x:1024-300
+        y:300
+        width: 300
+        height:188
+    }
+
+    Row {
+        id: leftupRow
+        spacing: 50
+        x:30
+        y:350
+        Image {
+            id: farlightImg
+            source: "qrc:/img/far_light.png"
+            width: 64
+            height: 64
+        }
+
+        Image {
+            id: locationLight
+            source: "qrc:/img/location_light.png"
+            width: 64
+            height: 64
+        }
+    }
+
+    Row {
+        id: rightupRow
+        spacing: 50
+        x:810
+        y:350
+        Image {
+            id: engineImg
+            source: "qrc:/img/drive_sys_warning.png"
+            width: 64
+            height: 64
+        }
+
+        Image {
+            id: autoholdImg
+            source: "qrc:/img/auto_hold.png"
+            width: 64
+            height: 64
+        }
+    }
+
+
+    Row {
+        id: leftdownRow
+        spacing: 50
+        x:30
+        y:430
+        Image {
+            id: insufficientCoolantImg
+            source: "qrc:/img/insufficient_coolant.png"
+            width: 64
+            height: 64
+        }
+
+        Image {
+            id: batteryWarnImg
+            source: "qrc:/img/power_battery_warning.png"
+            width: 64
+            height: 64
+        }
+    }
+
+    Row {
+        id: rightdownRow
+        spacing: 50
+        x:810
+        y:440
+        Image {
+            id: tirePressImg
+            source: "qrc:/img/tire_pressure_warning.png"
+            width: 64
+            height: 64
+        }
+
+        Image {
+            id: limitPowerImg
+            source: "qrc:/img/limit_power.png"
+            width: 64
+            height: 64
+        }
+    }
+
+    Rectangle{
+        id:leftSplitLine
+        width: 230
+        height: 2
+        x:20
+        y:420
+        border.color: "white"
+    }
+
+
+    Rectangle{
+        id:rightSplitLine
+        width: 230
+        height: 2
+        x:1024-250
+        y:420
+        border.color: "white"
+    }
+
+
     Component.onCompleted: {
         rightGuage.accelerating = true;
     }

@@ -72,7 +72,7 @@ CircularGauge {
 
                     // Create a linear gradient
                     var gradient = createLinearGradient(ctx, { x: 0, y: 0 }, { x: outerRadius * 2, y: 0 }, gradientColors);
-
+                    ctx.globalAlpha = 0.5;
                     // Loop through the gradient colors and fill the arc segment with each color
                     for (var i = 0; i < gradientColors.length; i++) {
                         var gradientColor = gradientColors[i];
@@ -237,7 +237,7 @@ CircularGauge {
 
                     //temperature
                     k = 7;
-                    for(var j = 0;j<6;j++)
+                    for(var j1 = 0;j1<6;j1++)
                     {
                         start_angle = Math.PI*2/24*k+adjustVal;
                         k=k+0.2;
@@ -354,6 +354,7 @@ CircularGauge {
                 y:350
                 source: "qrc:/img/plugged_in.png"
             }
+
         }
 
 

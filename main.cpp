@@ -2,6 +2,9 @@
 #include <QQmlApplicationEngine>
 #include "CanUtil.h"
 #include <functional>
+#include <QTextCodec>
+#include <QFont>
+#include <QFontDatabase>
 
 int main(int argc, char *argv[])
 {

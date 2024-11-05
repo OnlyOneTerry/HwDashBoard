@@ -41,5 +41,11 @@
         <file>img/near_light.png</file>
         <file>qmlfiles/DashArc.qml</file>
         <file>img/plugged_in.png</file>
+        <file>img/drive_sys_warning.png</file>
+        <file>img/power_battery_warning.png</file>
+        <file>img/limit_power.png</file>
+        <file>img/tire_pressure_warning.png</file>
+        <file>img/leftbg.png</file>
+        <file>img/rightbg.png</file>
     </qresource>
 </RCC>
