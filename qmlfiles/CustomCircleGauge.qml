@@ -11,7 +11,7 @@ CircularGauge {
     // Define the radius and angle for the arc
     property real arcAngle: 180  // Angle in degrees
     property real arcRadius: 90
-
+    property int chargeStatusIndex :0
     function speedColor(value){
         if(value < 60 ){
             return "green"
@@ -148,7 +148,7 @@ CircularGauge {
             Canvas {
                 id:canvas
                 property int value: gauge.value
-
+                property int  statusIndex:gauge.chargeStatusIndex
                 anchors.fill: parent
                 onValueChanged: requestPaint()
 
@@ -231,7 +231,52 @@ CircularGauge {
                         ctx.beginPath();
                         ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
                         ctx.lineWidth = outerRadius * 0.13;
+                        ctx.strokeStyle = "#ffffff";
+                        ctx.stroke();
+                    }
+
+                    //                     k = 0;
+                    //                    for(var m = 0;m<statusIndex;m++)
+                    //                    {
+                    //                        start_angle = Math.PI*2/24*k+adjustVal;
+                    //                        k=k+0.2;
+                    //                        end_angle = Math.PI*2/24*k+adjustVal;
+                    //                        ctx.beginPath();
+                    //                        ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
+                    //                        ctx.lineWidth = outerRadius * 0.13;
+                    //                        ctx.strokeStyle = "black";
+                    //                        ctx.stroke();
+
+                    //                        start_angle = Math.PI*2/24*k+adjustVal;
+                    //                        k=k+0.6;
+                    //                        end_angle = Math.PI*2/24*k+adjustVal;
+                    //                        ctx.beginPath();
+                    //                        ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
+                    //                        ctx.lineWidth = outerRadius * 0.13;
+                    //                        ctx.strokeStyle = "#0AFFE8";
+                    //                        ctx.stroke();
+                    //                    }
+
+                    var h = 0.8*6+0.2;
+                    for(var m = 0;m<statusIndex;m++)
+                    {
+                        h=h-0.6-0.2;
+                        start_angle = Math.PI*2/24*h+adjustVal;
+                        h=h+0.6;
+                        end_angle = Math.PI*2/24*h+adjustVal;
+                        ctx.beginPath();
+                        ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
+                        ctx.lineWidth = outerRadius * 0.13;
                         ctx.strokeStyle = "#0AFFE8";
+                        ctx.stroke();
+                        h=h-0.2-0.6;
+                        start_angle = Math.PI*2/24*h+adjustVal;
+                        h=h+0.2;
+                        end_angle = Math.PI*2/24*h+adjustVal;
+                        ctx.beginPath();
+                        ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
+                        ctx.lineWidth = outerRadius * 0.13;
+                        ctx.strokeStyle = "black";
                         ctx.stroke();
                     }
 
@@ -268,7 +313,9 @@ CircularGauge {
                         ctx.stroke();
                     }
                 }
+
             }
+
         }
 
 
@@ -315,15 +362,6 @@ CircularGauge {
                     font.family: "Inter"
                     color: "#FFFFFF"
                     font.bold: Font.DemiBold
-                    Layout.alignment: Qt.AlignHCenter
-                }
-                Label{
-                    text: "mph"
-                    font.pixelSize: 28
-                    font.family: "Inter"
-                    color: "#FFFFFF"
-                    opacity: 1
-                    font.bold: Font.Normal
                     Layout.alignment: Qt.AlignHCenter
                 }
                 Label{

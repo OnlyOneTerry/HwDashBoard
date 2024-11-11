@@ -24,14 +24,58 @@ ApplicationWindow {
     }
 
     MainInfoPanel{
+        id:mainPanel
         x:0
         y:72
     }
 
+    CurvedRectangle{
+        id:bottomRect
+        width: 300
+        height: 120
+        color: "black"
+        cornersRadius: [50,50,0,0]
+        borderWidth: 5
+        borderColor: "grey"
+        x:(parent.width-width)/2;
+        y:parent.height-120;
+
+        Label {
+            id: readyLabel
+            text: qsTr("READY")
+            color: "white"
+            font.bold: true;
+            font.pixelSize: 45
+            x:(parent.width-width)/2
+            y:10
+        }
+        Text {
+            id: gearTxt
+            text: qsTr("D")
+            font.bold: true
+            font.pixelSize: 65
+            color: "#4ce600"
+            x:(parent.width-width)/2
+            y:50
+        }
+    }
     CanUtil{
         id:caninfoutil
         onSignalTest: {
             console.log("the num from signal is :",num);
+
+        }
+        onSignalSpeed: {
+            mainPanel.speed = value;
+        }
+        onSignalGear: {
+           gearTxt.text=value;
+        }
+        onSignalRpm: {
+
+        }
+        onSignalPower: {
+
         }
     }
 }

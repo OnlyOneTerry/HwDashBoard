@@ -11,7 +11,7 @@ Item {
     id:root
     width: 1024;
     height: 528;
-
+    property real speed: 20
 
     TurnLight{
         id:leftTurnLight
@@ -51,7 +51,7 @@ Item {
                 }
                 Text {
                     id:tripunit
-                    text: qsTr("mile\nkm")
+                    text: qsTr("km")
                     color: "white"
                     font.pixelSize: 18
                 }
@@ -93,7 +93,7 @@ Item {
                 }
                 Text {
                     id:dodunit
-                    text: qsTr("mile\nkm")
+                    text: qsTr("km")
                     color: "white"
                     font.pixelSize: 18
                 }
@@ -102,7 +102,7 @@ Item {
             }
             Text {
                 id: dodtag
-                text: qsTr("DOD")
+                text: qsTr("ODO")
                 font.pixelSize: 40
                 font.bold: true
                 color: "white"
@@ -112,13 +112,6 @@ Item {
         }
     }
 
-//    SpeedPanel{
-//        width: 400
-//        height: 400
-//        x:(parent.width-width)/2
-//        y:10
-//    }
-
     CustomCircleGauge{
         id:rightGuage
         property bool accelerating
@@ -126,7 +119,7 @@ Item {
         height: 500
         x:(parent.width-width)/2
         y:-40
-        value: accelerating ? maximumValue : 0
+        value: speed;//accelerating ? maximumValue : 0
         maximumValue: 120
         Component.onCompleted: forceActiveFocus()
         Behavior on value { NumberAnimation { duration: 1000 }}
@@ -141,6 +134,21 @@ Item {
             }else if (event.key === Qt.Key_Space) {
                 leftGuage.accelerating = false;
                 event.accepted = true;
+            }
+        }
+
+        Timer{
+            id:animationTimer
+            interval: 500
+            running: true
+            repeat: true
+            onTriggered: {
+                rightGuage.value = Math.random()*120;
+                rightGuage.chargeStatusIndex++;
+                if(rightGuage.chargeStatusIndex>6)
+                {
+                    rightGuage.chargeStatusIndex = 0;
+                }
             }
         }
     }
