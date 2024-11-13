@@ -51,6 +51,7 @@ Item {
             anchors.centerIn: parent
             text: Math.floor(batteryLevel * 100) + "%"
             font.pixelSize: 20
+            font.bold: true
             color: "white"
         }
     }

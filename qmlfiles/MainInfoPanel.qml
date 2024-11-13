@@ -12,6 +12,9 @@ Item {
     width: 1024;
     height: 528;
     property real speed: 20
+    property alias leftTurnLight: leftTurnLight
+    property alias rightTurnLight:rightTurnLight
+    property alias middleGuage: middleGuage
 
     TurnLight{
         id:leftTurnLight
@@ -113,13 +116,13 @@ Item {
     }
 
     CustomCircleGauge{
-        id:rightGuage
+        id:middleGuage
         property bool accelerating
         width: 500
         height: 500
         x:(parent.width-width)/2
         y:-40
-        value: speed;//accelerating ? maximumValue : 0
+        value: 0;//accelerating ? maximumValue : 0
         maximumValue: 120
         Component.onCompleted: forceActiveFocus()
         Behavior on value { NumberAnimation { duration: 1000 }}
@@ -143,11 +146,13 @@ Item {
             running: true
             repeat: true
             onTriggered: {
-                rightGuage.value = Math.random()*120;
-                rightGuage.chargeStatusIndex++;
-                if(rightGuage.chargeStatusIndex>6)
+                middleGuage.speed = Math.random()*120;
+                middleGuage.value = Math.random()*120;
+                //test animation
+                middleGuage.chargeStatusIndex++;
+                if(middleGuage.chargeStatusIndex>6)
                 {
-                    rightGuage.chargeStatusIndex = 0;
+                    middleGuage.chargeStatusIndex = 0;
                 }
             }
         }
@@ -273,7 +278,7 @@ Item {
 
 
     Component.onCompleted: {
-        rightGuage.accelerating = true;
+        middleGuage.accelerating = true;
     }
 
 }

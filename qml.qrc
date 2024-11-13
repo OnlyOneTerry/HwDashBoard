@@ -47,5 +47,6 @@
         <file>img/tire_pressure_warning.png</file>
         <file>img/leftbg.png</file>
         <file>img/rightbg.png</file>
+        <file>qmlfiles/GearPanel.qml</file>
     </qresource>
 </RCC>

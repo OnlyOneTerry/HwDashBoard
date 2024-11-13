@@ -6,6 +6,9 @@ Rectangle {
     height: 72;
     color: "#000000"
     property  string time:"00:00";
+    property int remainMile: 140
+    property alias  battery: battery
+
     Rectangle{
         id:time_rect
         x:10
@@ -25,7 +28,7 @@ Rectangle {
 
     Image {
         id: bluetooth
-        x:1024-36*2-120;
+        x:1024-36*2-120-70;
         y:18;
         width: 36;
         height: 36;
@@ -34,7 +37,7 @@ Rectangle {
 
     Image {
         id: wifi
-        x:1024-36-100;
+        x:1024-36-110-70;
         y:18;
         source: "qrc:/img/wifi.png"
         width: 36;
@@ -43,8 +46,18 @@ Rectangle {
 
     Battery{
         id:battery
-        x:1024-80
+        x:1024-90-70
         y:18
+    }
+
+    Text {
+        id: remainMileage
+        text: remainMile+ qsTr("km")
+        color: "white"
+        font.pixelSize: 30
+        font.bold: true
+        x:1024-90
+        y:20
     }
 
     Timer{

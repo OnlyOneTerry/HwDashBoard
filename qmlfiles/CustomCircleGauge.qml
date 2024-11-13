@@ -12,6 +12,13 @@ CircularGauge {
     property real arcAngle: 180  // Angle in degrees
     property real arcRadius: 90
     property int chargeStatusIndex :0
+    property int speed: 0;
+
+    // 动画效果
+    Behavior on speed {
+        NumberAnimation { duration: 500; easing.type: Easing.InOutQuad }
+    }
+
     function speedColor(value){
         if(value < 60 ){
             return "green"
@@ -357,12 +364,14 @@ CircularGauge {
                 y:200
 
                 Label{
-                    text: gauge.value.toFixed(0)
+                    id:speedLabel
+                    text:speed//gauge.value.toFixed(0)
                     font.pixelSize: 85
                     font.family: "Inter"
                     color: "#FFFFFF"
                     font.bold: Font.DemiBold
                     Layout.alignment: Qt.AlignHCenter
+
                 }
                 Label{
                     text: "km/h"
