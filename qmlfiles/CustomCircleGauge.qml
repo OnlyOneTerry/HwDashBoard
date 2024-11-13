@@ -242,27 +242,27 @@ CircularGauge {
                         ctx.stroke();
                     }
 
-                    //                     k = 0;
-                    //                    for(var m = 0;m<statusIndex;m++)
-                    //                    {
-                    //                        start_angle = Math.PI*2/24*k+adjustVal;
-                    //                        k=k+0.2;
-                    //                        end_angle = Math.PI*2/24*k+adjustVal;
-                    //                        ctx.beginPath();
-                    //                        ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
-                    //                        ctx.lineWidth = outerRadius * 0.13;
-                    //                        ctx.strokeStyle = "black";
-                    //                        ctx.stroke();
+                    //  k = 0;
+                    // for(var m = 0;m<statusIndex;m++)
+                    // {
+                    //     start_angle = Math.PI*2/24*k+adjustVal;
+                    //     k=k+0.2;
+                    //     end_angle = Math.PI*2/24*k+adjustVal;
+                    //     ctx.beginPath();
+                    //     ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
+                    //     ctx.lineWidth = outerRadius * 0.13;
+                    //     ctx.strokeStyle = "black";
+                    //     ctx.stroke();
 
-                    //                        start_angle = Math.PI*2/24*k+adjustVal;
-                    //                        k=k+0.6;
-                    //                        end_angle = Math.PI*2/24*k+adjustVal;
-                    //                        ctx.beginPath();
-                    //                        ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
-                    //                        ctx.lineWidth = outerRadius * 0.13;
-                    //                        ctx.strokeStyle = "#0AFFE8";
-                    //                        ctx.stroke();
-                    //                    }
+                    //     start_angle = Math.PI*2/24*k+adjustVal;
+                    //     k=k+0.6;
+                    //     end_angle = Math.PI*2/24*k+adjustVal;
+                    //     ctx.beginPath();
+                    //     ctx.arc(centerX,centerY,outerRadius-75-10,start_angle,end_angle,false);
+                    //     ctx.lineWidth = outerRadius * 0.13;
+                    //     ctx.strokeStyle = "#0AFFE8";
+                    //     ctx.stroke();
+                    // }
 
                     var h = 0.8*6+0.2;
                     for(var m = 0;m<statusIndex;m++)
@@ -351,7 +351,7 @@ CircularGauge {
 
             Label{
                 text: "x1000/min"
-                font.pixelSize: 20
+                font.pixelSize: 25
                 font.family: "Inter"
                 color: "#FFFFFF"
                 font.bold: Font.DemiBold
@@ -361,12 +361,12 @@ CircularGauge {
 
             ColumnLayout{
                 x:(parent.width-width)/2;
-                y:200
+                y:210
 
                 Label{
                     id:speedLabel
                     text:speed//gauge.value.toFixed(0)
-                    font.pixelSize: 85
+                    font.pixelSize: 125
                     font.family: "Inter"
                     color: "#FFFFFF"
                     font.bold: Font.DemiBold

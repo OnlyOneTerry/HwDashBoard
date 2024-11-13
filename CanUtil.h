@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QThread>
 
+
 //#include "component/battery_cluster_comp/battery_cluster_comp.hpp"
 #include "component/vcu_cluster_comp/vcu_cluster_comp.hpp"
 #include "idl/vcu_idl/VcuMsg.h"
@@ -37,7 +38,7 @@ protected:
     void run();
 private:
 
-   HandlerCb hb_;
+    HandlerCb hb_;
 };
 
 #endif // CANUITL_H

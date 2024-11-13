@@ -21,10 +21,12 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
 
 set(HEAD_FILE
    CanUtil.h
+   GlobalEnv.h
     )
 
 set(SOURCE_FILE
     CanUtil.cpp
+    GlobalEnv.cpp
     )
 
 set(PROJECT_SOURCES

@@ -15,7 +15,8 @@ ApplicationWindow {
     height: 600
     title: "QtQuick Gauge Example"
     color: "black";
-
+    property real moveSpeed : 1.0
+    property real singleDistance: 0
 
     Head{
         id:headerPanel
@@ -155,7 +156,8 @@ ApplicationWindow {
         }
 
         onSignalSpeed: {
-            mainPanel.speed = value;
+            moveSpeed = value.toFixed(1);
+            mainPanel.speed = moveSpeed;
         }
 
         onSignalGear: {
@@ -194,6 +196,28 @@ ApplicationWindow {
             console.log("batsoc is:",value);
             headerPanel.battery.batteryLevel = value/100.0;
         }
+    }
+
+    Timer{
+        id:updateMile
+        interval: 1000
+        repeat: true
+        running: true
+        onTriggered: {
+            var sp = moveSpeed/3600;
+            mainPanel.tripmile +=sp;
+            mainPanel.tripmile =mainPanel.tripmile.toFixed(2);
+            mainPanel.odomile +=sp;
+            mainPanel.odomile = mainPanel.odomile.toFixed(2);
+            GlobalEnv.setTotalMiles(mainPanel.odomile);
+        }
+    }
+
+    Component.onCompleted: {
+        var total = GlobalEnv.getTotalMiles();
+        console.log("totalmile is :",total);
+        mainPanel.odomile = total;
+
     }
 }
 

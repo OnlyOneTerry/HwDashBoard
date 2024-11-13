@@ -15,6 +15,8 @@ Item {
     property alias leftTurnLight: leftTurnLight
     property alias rightTurnLight:rightTurnLight
     property alias middleGuage: middleGuage
+    property real tripmile :0
+    property real odomile: 0
 
     TurnLight{
         id:leftTurnLight
@@ -46,17 +48,18 @@ Item {
             anchors.centerIn: parent
             Row{
                 Text {
-                    id: tripmile
-                    text: qsTr("286.5")
+                    id: tripMile
+                    text:tripmile// qsTr("286.5")
                     font.pixelSize: 40
-                    font.bold: false
+                    font.bold: true
                     color: "white"
                 }
                 Text {
                     id:tripunit
                     text: qsTr("km")
                     color: "white"
-                    font.pixelSize: 18
+                    font.bold: true
+                    font.pixelSize: 22
                 }
                 x:(parent.width-width)/2;
                 y:(parent.height-height)/2-20;
@@ -89,16 +92,17 @@ Item {
             Row{
                 Text {
                     id: dodmile
-                    text: qsTr("26792")
+                    text:odomile// qsTr("26792")
                     font.pixelSize: 40
-                    font.bold: false
+                    font.bold: true
                     color: "white"
                 }
                 Text {
                     id:dodunit
                     text: qsTr("km")
                     color: "white"
-                    font.pixelSize: 18
+                    font.bold: true
+                    font.pixelSize: 22
                 }
                 x:(parent.width-width)/2;
                 y:(parent.height-height)/2-20;
@@ -122,24 +126,10 @@ Item {
         height: 500
         x:(parent.width-width)/2
         y:-40
-        value: 0;//accelerating ? maximumValue : 0
+        value: 0;
         maximumValue: 120
         Component.onCompleted: forceActiveFocus()
         Behavior on value { NumberAnimation { duration: 1000 }}
-        Keys.onSpacePressed: leftGuage.accelerating = true
-        Keys.onEnterPressed: rightGuage.accelerating = true
-        Keys.onReturnPressed: rightGuage.accelerating = true
-
-        Keys.onReleased: {
-            if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                rightGuage.accelerating = false;
-                event.accepted = true;
-            }else if (event.key === Qt.Key_Space) {
-                leftGuage.accelerating = false;
-                event.accepted = true;
-            }
-        }
-
         Timer{
             id:animationTimer
             interval: 500
@@ -275,10 +265,4 @@ Item {
         y:420
         border.color: "white"
     }
-
-
-    Component.onCompleted: {
-        middleGuage.accelerating = true;
-    }
-
 }

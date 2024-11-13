@@ -5,6 +5,8 @@
 #include <QTextCodec>
 #include <QFont>
 #include <QFontDatabase>
+#include "GlobalEnv.h"
+#include <QQmlContext>
 
 int main(int argc, char *argv[])
 {
@@ -14,9 +16,12 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
-
    qmlRegisterType<CanUtil>("CanUtil",1,0,"CanUtil");
     QQmlApplicationEngine engine;
+
+    auto globalEnv = new GlobalEnv();
+    engine.rootContext()->setContextProperty("GlobalEnv",globalEnv);
+
     const QUrl url(QStringLiteral("qrc:/qmlfiles/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
