@@ -30,35 +30,36 @@ ApplicationWindow {
         y:72
     }
 
+    Label {
+        id: readyLabel
+        text: qsTr("READY")
+        color: "white"
+        font.bold: true;
+        font.pixelSize: 45
+        x:(parent.width-width)/2
+        y:parent.height-125
+    }
+
     CurvedRectangle{
         id:bottomRect
         width: 300
-        height: 120
+        height:80
         color: "black"
         cornersRadius: [50,50,0,0]
         borderWidth: 5
         borderColor: "grey"
         x:(parent.width-width)/2;
-        y:parent.height-120;
+        y:parent.height-80;
         property alias readyLabel: readyLabel
 
-        Label {
-            id: readyLabel
-            text: qsTr("READY")
-            color: "white"
-            font.bold: true;
-            font.pixelSize: 45
-            x:(parent.width-width)/2
-            y:10
-        }
         Text {
             id: gearTxt
             text: qsTr("P")
             font.bold: true
             font.pixelSize: 65
             color: "#4ce600"
-            x:20//;(parent.width-width)/2
-            y:50
+            x:20
+            y:10//50
         }
         Text {
             id: gear0
@@ -67,7 +68,7 @@ ApplicationWindow {
             font.pixelSize: 65
             color: "#ffffff"
             x:gearTxt.x+gearTxt.width+20;//(parent.width-width)/2
-            y:50
+            y:10
         }
         Text {
             id: gear1
@@ -76,7 +77,7 @@ ApplicationWindow {
             font.pixelSize: 65
             color: "#ffffff"
             x:gear0.x+gear0.width+20
-            y:50
+            y:10
         }
         Text {
             id: gear2
@@ -85,7 +86,7 @@ ApplicationWindow {
             font.pixelSize: 65
             color: "#ffffff"
             x:gear1.x+gear1.width+20
-            y:50
+            y:10
         }
         Text {
             id: gear3
@@ -94,7 +95,7 @@ ApplicationWindow {
             font.pixelSize: 65
             color: "#ffffff"
             x:gear2.x+gear2.width+20
-            y:50
+            y:10
         }
     }
 
@@ -157,7 +158,7 @@ ApplicationWindow {
 
         onSignalSpeed: {
             moveSpeed = value.toFixed(1);
-            mainPanel.speed = moveSpeed;
+            mainPanel.middleGuage.speed = moveSpeed;
         }
 
         onSignalGear: {
@@ -216,7 +217,7 @@ ApplicationWindow {
     Component.onCompleted: {
         var total = GlobalEnv.getTotalMiles();
         console.log("totalmile is :",total);
-        mainPanel.odomile = total;
+        mainPanel.odomile = total.toFixed(2);
 
     }
 }

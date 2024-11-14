@@ -1,8 +1,19 @@
 #include "CanUtil.h"
+#include <QTimer>
 
 CanUtil::CanUtil()
 {
     this->start();
+
+    QTimer* timer = new QTimer();
+
+    timer->setInterval(200);
+    timer->setSingleShot(false);
+    connect(timer,&QTimer::timeout,this,[=](){
+       auto speed = rand()/100.0;
+       emit  signalSpeed(speed);
+    });
+    timer->start(100);
 }
 
 CanUtil::~CanUtil()

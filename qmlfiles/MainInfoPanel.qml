@@ -125,7 +125,7 @@ Item {
         width: 500
         height: 500
         x:(parent.width-width)/2
-        y:-40
+        y:-45
         value: 0;
         maximumValue: 120
         Component.onCompleted: forceActiveFocus()
@@ -136,7 +136,6 @@ Item {
             running: true
             repeat: true
             onTriggered: {
-                middleGuage.speed = Math.random()*120;
                 middleGuage.value = Math.random()*120;
                 //test animation
                 middleGuage.chargeStatusIndex++;
