@@ -6,7 +6,7 @@ import QtGraphicalEffects 1.0
 
 Item {
     id:root
-    property real batteryLevel: 0.6
+    property real batteryLevel: 0.0
     property real borderWidth: 3
     property color borderColor: "white"//"#aaaaaa"
     property color nomalLevelColor: "#4CAF50"

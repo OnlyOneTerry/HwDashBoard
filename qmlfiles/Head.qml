@@ -6,7 +6,7 @@ Rectangle {
     height: 72;
     color: "#000000"
     property  string time:"00:00";
-    property int remainMile: 140
+    property int remainMile: 0
     property alias  battery: battery
 
     Rectangle{

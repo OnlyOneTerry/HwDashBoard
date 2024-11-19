@@ -13,6 +13,7 @@ CircularGauge {
     property real arcRadius: 90
     property int chargeStatusIndex :0
     property int speed: 0;
+    property bool is_plugged_in: false
 
     // 动画效果
     Behavior on speed {
@@ -361,7 +362,7 @@ CircularGauge {
 
             ColumnLayout{
                 x:(parent.width-width)/2;
-                y:210
+                y:220
 
                 Label{
                     id:speedLabel
@@ -400,6 +401,7 @@ CircularGauge {
                 x:415
                 y:350
                 source: "qrc:/img/plugged_in.png"
+                visible: is_plugged_in
             }
 
         }

@@ -30,6 +30,15 @@ ApplicationWindow {
         y:72
     }
 
+    Image {
+        id: side_stand_img
+        source: "qrc:/img/side_stand.png"
+        width: 64
+        height:64
+        x:(parent.width-width)/2;
+        y:195;
+    }
+
     Label {
         id: readyLabel
         text: qsTr("READY")
@@ -37,7 +46,7 @@ ApplicationWindow {
         font.bold: true;
         font.pixelSize: 45
         x:(parent.width-width)/2
-        y:parent.height-125
+        y:parent.height-128
     }
 
     CurvedRectangle{
@@ -50,7 +59,7 @@ ApplicationWindow {
         borderColor: "grey"
         x:(parent.width-width)/2;
         y:parent.height-80;
-        property alias readyLabel: readyLabel
+
 
         Text {
             id: gearTxt
@@ -67,7 +76,7 @@ ApplicationWindow {
             font.bold: true
             font.pixelSize: 65
             color: "#ffffff"
-            x:gearTxt.x+gearTxt.width+20;//(parent.width-width)/2
+            x:gearTxt.x+gearTxt.width+20;
             y:10
         }
         Text {
@@ -151,22 +160,21 @@ ApplicationWindow {
 
     CanUtil{
         id:caninfoutil
-        onSignalTest: {
-            console.log("the num from signal is :",num);
-
-        }
 
         onSignalSpeed: {
+            console.log("speed is :",value);
             moveSpeed = value.toFixed(1);
             mainPanel.middleGuage.speed = moveSpeed;
         }
 
         onSignalGear: {
+            console.log("gear is :",value);
             showGear(value);
         }
 
         onSignalRpm: {
-            mainPanel.middleGuage.rpm = value;
+            console.log("rpm is :",value);
+            mainPanel.middleGuage.value = value;
         }
 
         onSignalPower: {
@@ -174,29 +182,68 @@ ApplicationWindow {
         }
 
         onSignalReady:{
-            value ? bottomRect.readyLabel.color="green" : bottomRect.readyLabel.color="white";
+            console.log("ready is:",value);
+            value ? readyLabel.color="#4ce600" : readyLabel.color="white";
         }
 
         onSignalRemainRange:
         {
-            headerPanel.remainMile = value;
+            console.log("remained range is :",value);
+            var remain = value;//Math.random() * 100;
+            headerPanel.remainMile = remain.toFixed(2);
         }
 
         onSignalRightTurnOn:
         {
+            console("right turn is:",value);
             mainPanel.rightTurnLight.on = value;
         }
 
         onSignalLeftTurnOn:
         {
+            console.log("left turn is:",value);
             mainPanel.leftTurnLight.on = value;
         }
 
         onSignalBatSoc:
-        {
-            console.log("batsoc is:",value);
-            headerPanel.battery.batteryLevel = value/100.0;
+        { 
+            console.log("soc is :",value);
+            var soc = value ;//Math.random() * 100;
+            soc = soc.toFixed(0);
+            console.log("batsoc is:",soc);
+            headerPanel.battery.batteryLevel = soc/100.0;
         }
+
+        onSignalAutoHold: {
+            console.log("AutoHold is:",value);
+        }
+
+        onSignalBatteryOverHotWarning: {
+            console("batter is over hot:",value);
+           mainPanel.is_battery_over_hot = value;
+        }
+
+        onSignalIsFarLight: {
+            console.log("far light is:",value);
+           mainPanel.is_far_light = value;
+        }
+
+        onSignalLimitPowerWarning:
+        {
+            console.log("limit power is :",value);
+            mainPanel.is_limit_power = value;
+        }
+
+        onSignalBatteryWarning: {
+            console.log("battery warning is:",value);
+             mainPanel.is_battery_warning = value;
+        }
+
+        onSignalPluginIn: {
+            console.log("plugged in is :",value);
+             mainPanel.middleGuage.is_plugged_in = value;
+        }
+
     }
 
     Timer{
@@ -220,5 +267,6 @@ ApplicationWindow {
         mainPanel.odomile = total.toFixed(2);
 
     }
+
 }
 

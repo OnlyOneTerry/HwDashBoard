@@ -17,13 +17,22 @@ Item {
     property alias middleGuage: middleGuage
     property real tripmile :0
     property real odomile: 0
+    property bool is_far_light: false
+    property bool  is_limit_power: false
+    property bool  is_drive_warning: false
+    property bool  is_battery_warning: false
+    property bool  is_battery_over_hot: false
+    property bool  is_coolant_insufficient: false
+    property bool  is_tire_warning: false
+    property bool  is_left_turn: false
+    property bool  is_right_turn:false;
 
     TurnLight{
         id:leftTurnLight
         x:200;
         y:18;
         source_path: "qrc:/img/leftArrow.png"
-        on:true
+        on:is_left_turn
     }
 
     TurnLight{
@@ -31,6 +40,7 @@ Item {
         x:1024-200-width;
         y:18;
         source_path: "qrc:/img/rightArrow.png"
+        on:is_right_turn
     }
 
     DashedCircle{
@@ -49,7 +59,7 @@ Item {
             Row{
                 Text {
                     id: tripMile
-                    text:tripmile// qsTr("286.5")
+                    text:tripmile
                     font.pixelSize: 40
                     font.bold: true
                     color: "white"
@@ -92,7 +102,7 @@ Item {
             Row{
                 Text {
                     id: dodmile
-                    text:odomile// qsTr("26792")
+                    text:odomile
                     font.pixelSize: 40
                     font.bold: true
                     color: "white"
@@ -133,7 +143,7 @@ Item {
         Timer{
             id:animationTimer
             interval: 500
-            running: true
+            running: false
             repeat: true
             onTriggered: {
                 middleGuage.value = Math.random()*120;
@@ -172,9 +182,10 @@ Item {
         y:350
         Image {
             id: farlightImg
-            source: "qrc:/img/far_light.png"
+            source: is_far_light ?"qrc:/img/far_light.png":"qrc:/img/near_light.png"
             width: 64
             height: 64
+            visible: false;
         }
 
         Image {
@@ -195,6 +206,7 @@ Item {
             source: "qrc:/img/drive_sys_warning.png"
             width: 64
             height: 64
+            visible: is_drive_warning;
         }
 
         Image {
@@ -216,6 +228,7 @@ Item {
             source: "qrc:/img/insufficient_coolant.png"
             width: 64
             height: 64
+            visible: is_coolant_insufficient
         }
 
         Image {
@@ -223,6 +236,7 @@ Item {
             source: "qrc:/img/power_battery_warning.png"
             width: 64
             height: 64
+            visible: is_battery_warning;
         }
     }
 
@@ -236,6 +250,7 @@ Item {
             source: "qrc:/img/tire_pressure_warning.png"
             width: 64
             height: 64
+            visible: is_tire_warning
         }
 
         Image {
@@ -243,6 +258,7 @@ Item {
             source: "qrc:/img/limit_power.png"
             width: 64
             height: 64
+            visible: is_limit_power;
         }
     }
 

@@ -48,5 +48,6 @@
         <file>img/leftbg.png</file>
         <file>img/rightbg.png</file>
         <file>qmlfiles/GearPanel.qml</file>
+        <file>img/side_stand.png</file>
     </qresource>
 </RCC>
