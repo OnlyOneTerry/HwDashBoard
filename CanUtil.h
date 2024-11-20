@@ -41,7 +41,7 @@ signals:
     //display
     void signalSpeed(unsigned char value);
     void signalDriveMode(unsigned char value);
-    void signalRpm(unsigned char value);
+    void signalRpm(int value);
     void signalGear(int value);
     void signalPower(uint value);
     void signalLeftTurnOn(bool value);
@@ -63,6 +63,7 @@ signals:
     void signalTime(QString time);
     void signalTotalMileage(float value);
     void signalTripMileage(float value);
+    void signalBatteryTemp(float value);
     //warnnig or fault
 
 protected:

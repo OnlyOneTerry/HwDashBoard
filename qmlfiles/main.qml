@@ -175,7 +175,7 @@ ApplicationWindow {
 
         onSignalRpm: {
             console.log("rpm is :",value);
-            mainPanel.middleGuage.value = value;
+            mainPanel.middleGuage.value = value/100.0;//note: gauge has divided 10
         }
 
         onSignalPower: {
@@ -211,7 +211,6 @@ ApplicationWindow {
             console.log("soc is :",value);
             var soc = value ;//Math.random() * 100;
             soc = soc.toFixed(0);
-            console.log("batsoc is:",soc);
             headerPanel.battery.batteryLevel = soc/100.0;
         }
 
