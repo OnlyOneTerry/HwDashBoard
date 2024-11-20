@@ -169,7 +169,8 @@ ApplicationWindow {
 
         onSignalGear: {
             console.log("gear is :",value);
-            showGear(value);
+            var index = value;
+            showGear(index);
         }
 
         onSignalRpm: {
@@ -206,7 +207,7 @@ ApplicationWindow {
         }
 
         onSignalBatSoc:
-        { 
+        {
             console.log("soc is :",value);
             var soc = value ;//Math.random() * 100;
             soc = soc.toFixed(0);
@@ -220,12 +221,12 @@ ApplicationWindow {
 
         onSignalBatteryOverHotWarning: {
             console("batter is over hot:",value);
-           mainPanel.is_battery_over_hot = value;
+            mainPanel.is_battery_over_hot = value;
         }
 
         onSignalIsFarLight: {
             console.log("far light is:",value);
-           mainPanel.is_far_light = value;
+            mainPanel.is_far_light = value;
         }
 
         onSignalLimitPowerWarning:
@@ -236,27 +237,38 @@ ApplicationWindow {
 
         onSignalBatteryWarning: {
             console.log("battery warning is:",value);
-             mainPanel.is_battery_warning = value;
+            mainPanel.is_battery_warning = value;
         }
 
         onSignalPluginIn: {
             console.log("plugged in is :",value);
-             mainPanel.middleGuage.is_plugged_in = value;
+            mainPanel.middleGuage.is_plugged_in = value;
         }
 
+        onSignalTotalMileage: {
+            console.log("total is :",value);
+            var total =value ;
+            mainPanel.odomile = total.toFixed(1);
+        }
+
+        onSignalTripMileage: {
+            var trip = value;
+            console.log("trip is :",trip);
+            mainPanel.tripmile =trip.toFixed(1);
+        }
     }
 
     Timer{
         id:updateMile
         interval: 1000
         repeat: true
-        running: true
+        running: false
         onTriggered: {
             var sp = moveSpeed/3600;
             mainPanel.tripmile +=sp;
-            mainPanel.tripmile =mainPanel.tripmile.toFixed(2);
+            mainPanel.tripmile =mainPanel.tripmile.toFixed(1);
             mainPanel.odomile +=sp;
-            mainPanel.odomile = mainPanel.odomile.toFixed(2);
+            mainPanel.odomile = mainPanel.odomile.toFixed(1);
             GlobalEnv.setTotalMiles(mainPanel.odomile);
         }
     }
@@ -264,7 +276,7 @@ ApplicationWindow {
     Component.onCompleted: {
         var total = GlobalEnv.getTotalMiles();
         console.log("totalmile is :",total);
-        mainPanel.odomile = total.toFixed(2);
+        mainPanel.odomile = total.toFixed(1);
 
     }
 

@@ -42,7 +42,7 @@ signals:
     void signalSpeed(unsigned char value);
     void signalDriveMode(unsigned char value);
     void signalRpm(unsigned char value);
-    void signalGear(unsigned char value);
+    void signalGear(int value);
     void signalPower(uint value);
     void signalLeftTurnOn(bool value);
     void signalRightTurnOn(bool value);
@@ -60,6 +60,9 @@ signals:
     void signalCoolantLowWarning(bool value);
     void signalBrake(bool value);
     void signalClusterTotalMileageReset(bool value);//clear trip
+    void signalTime(QString time);
+    void signalTotalMileage(float value);
+    void signalTripMileage(float value);
     //warnnig or fault
 
 protected:
