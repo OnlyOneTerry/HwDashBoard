@@ -52,18 +52,18 @@ CanUtil::CanUtil()
 {
     this->start();
 
-       QTimer* timer = new QTimer();
-       timer->setInterval(200);
-       timer->setSingleShot(false);
-       connect(timer,&QTimer::timeout,this,[=](){
-//           auto testval = rand()/100.0;
-//           emit  signalSpeed(testval);
-//           emit signalReady(true);
-//           emit signalBatSoc(testval);
-//           emit signalRemainRange(testval);
-           //emit signalRpm(2000);
-       });
-       timer->start(100);
+      QTimer* timer = new QTimer();
+      timer->setInterval(200);
+      timer->setSingleShot(false);
+      connect(timer,&QTimer::timeout,this,[=](){
+//          auto testval = rand()/100.0;
+//          emit  signalSpeed(testval);
+//          emit signalReady(true);
+//          emit signalBatSoc(testval);
+//          emit signalRemainRange(testval);
+          //emit signalRpm(1300);
+      });
+      //timer->start(100);
 }
 
 CanUtil::~CanUtil()
@@ -108,24 +108,32 @@ void CanUtil::run()
     ServiceComponent srvcomp_modemgmt(srv_id.first);
     initSrvService(SRVCOMP_MODEMGMT_CONFIG_FILE_PATH,srv_id,srvcomp_modemgmt);
 
+    //powermgmt
+    srv_id = GetCompSrvIdConf(SRVCOMP_PWOERMGMT_CONFIG_FILE_PATH);
+    if (srv_id.first == 0 && srv_id.second == 0) {
+        exit(1);
+    }
+    ServiceComponent srvcomp_powermgmt(srv_id.first);
+    initSrvService(SRVCOMP_PWOERMGMT_CONFIG_FILE_PATH,srv_id,srvcomp_powermgmt);
 
     CanValueMsg* real_msg = nullptr;
+    std::shared_ptr<ServiceMsg> srv_msg = nullptr;
     while (true) {
+
         //motionctrl
-        std::shared_ptr<ServiceMsg> srv_msg = nullptr;
         srvcomp_motionmgmt.Consume(srv_msg);
         if (srv_msg != nullptr) {
             real_msg = (CanValueMsg*)srv_msg->GetMsgImpl();
             // TODO: emit
-            signalBatSoc(real_msg->value()[GetCanSigIdentity(0x18F101F4, "Bat_SOC")]);
-            signalGearMode(real_msg->value()[GetCanSigIdentity(0xC12A1C1, "Three_Gears_Set")]);
+            //signalGearMode(real_msg->value()[GetCanSigIdentity(0xC12A1C1, "Three_Gears_Set")]);
             auto rpm = real_msg->value()[GetCanSigIdentity(0x18F001C1, "Realtime_Rot_Speed")];
             signalRpm(rpm);
-            //TODO: calculate speed specify r 0.25m
-            auto speed = 0.25*rpm;
+            //TODO: calculate speed
+            auto speed = 1.953*60*rpm/1000;
             signalSpeed(speed);
             signalGear(real_msg->value()[GetCanSigIdentity(0x18F002C1, "Controller_Gear_Pos")]);
-            std::cout<<"recieve msg from can ...."<<std::endl;
+            signalSideStandDrop(real_msg->value()[GetCanSigIdentity(0x18F002C1, "Status_Side_Brace")]);
+            signalPGear(real_msg->value()[GetCanSigIdentity(0x18F002C1, "Status_P_Gear")]);
         }
 
         //cluster
@@ -137,11 +145,9 @@ void CanUtil::run()
             signalRemainRange(real_msg->value()[GetCanSigIdentity(0x18F003A5, "Remainder_Mileage")]);
             auto hour = real_msg->value()[GetCanSigIdentity(0x18F003A5, "Hour")];
             auto minute =  real_msg->value()[GetCanSigIdentity(0x18F003A5, "Minute")];
-            time = QString("%1:%2").arg(hour).arg(minute);
-            signalTime(time);
+            signalTime(QString("%1:%2").arg(hour).arg(minute));
             signalTotalMileage(real_msg->value()[GetCanSigIdentity(0x18F003A5, "Total_Mileage")]);
             signalTripMileage(real_msg->value()[GetCanSigIdentity(0x18F003A5, "Trip_Mileage")]);
-            std::cout<<"recieve msg from srvcomp_cluter ...."<<std::endl;
         }
 
         //battery
@@ -155,12 +161,21 @@ void CanUtil::run()
         }
 
         //modemgmt
+//        srv_msg = nullptr;
+//        srvcomp_modemgmt.Consume(srv_msg);
+//        if (srv_msg != nullptr) {
+//            real_msg = (CanValueMsg*)srv_msg->GetMsgImpl();
+            // TODO: emit
+//            signalGearMode(real_msg->value()[GetCanSigIdentity(0x0C12A1C1, "Three_Gears_Set ")]);
+//        }
+
+        //powermgmt
         srv_msg = nullptr;
-        srvcomp_modemgmt.Consume(srv_msg);
+        srvcomp_powermgmt.Consume(srv_msg);
         if (srv_msg != nullptr) {
             real_msg = (CanValueMsg*)srv_msg->GetMsgImpl();
             // TODO: emit
-//            signalGearMode(real_msg->value()[GetCanSigIdentity(0x0C12A1C1, "Three_Gears_Set ")]);
+            signalKIneEnergyRecovery(real_msg->value()[GetCanSigIdentity(0x18F002C1, "Kinetic_Energy_Recovery ")]);
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(10));

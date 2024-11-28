@@ -43,10 +43,10 @@ signals:
     void signalDriveMode(unsigned char value);
     void signalRpm(int value);
     void signalGear(int value);
-    void signalPower(uint value);
+    void signalPower(int value);
     void signalLeftTurnOn(bool value);
     void signalRightTurnOn(bool value);
-    void signalGearMode(uint value);//0 1 2 3
+    void signalGearMode(int value);//0 1 2 3
     void signalRemainRange(int value);
     void signalReady(bool value);
     void signalBatSoc(short value);
@@ -60,10 +60,14 @@ signals:
     void signalCoolantLowWarning(bool value);
     void signalBrake(bool value);
     void signalClusterTotalMileageReset(bool value);//clear trip
-    void signalTime(QString time);
+    void signalTime(QString value);
     void signalTotalMileage(float value);
     void signalTripMileage(float value);
     void signalBatteryTemp(float value);
+    void signalSideStandDrop(quint64 value);
+    void signalKIneEnergyRecovery(bool value);
+    void signalPGear(quint64 value);
+
     //warnnig or fault
 
 protected:

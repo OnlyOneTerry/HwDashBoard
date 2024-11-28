@@ -37,6 +37,7 @@ ApplicationWindow {
         height:64
         x:(parent.width-width)/2;
         y:195;
+        visible: false;
     }
 
     Label {
@@ -75,16 +76,17 @@ ApplicationWindow {
             text: qsTr("0")
             font.bold: true
             font.pixelSize: 65
-            color: "#ffffff"
+            color: "#bbbbbb"
             x:gearTxt.x+gearTxt.width+20;
             y:10
+            visible: false
         }
         Text {
             id: gear1
             text: qsTr("1")
             font.bold: true
             font.pixelSize: 65
-            color: "#ffffff"
+            color: "#bbbbbb"
             x:gear0.x+gear0.width+20
             y:10
         }
@@ -93,7 +95,7 @@ ApplicationWindow {
             text: qsTr("2")
             font.bold: true
             font.pixelSize: 65
-            color: "#ffffff"
+            color: "#bbbbbb"
             x:gear1.x+gear1.width+20
             y:10
         }
@@ -102,7 +104,7 @@ ApplicationWindow {
             text: qsTr("3")
             font.bold: true
             font.pixelSize: 65
-            color: "#ffffff"
+            color: "#bbbbbb"
             x:gear2.x+gear2.width+20
             y:10
         }
@@ -113,28 +115,34 @@ ApplicationWindow {
         switch(index)
         {
         case 0:
-            gear0.color="green";
-            gear1.color="white";
-            gear2.color="white";
-            gear3.color="white";
+            gear0.color="#4ce600";
+            gear1.color="#bbbbbb";
+            gear2.color="#bbbbbb";
+            gear3.color="#bbbbbb";
             break;
         case 1:
-            gear0.color="white";
-            gear1.color="green";
-            gear2.color="white";
-            gear3.color="white";
+            gear0.color="#bbbbbb";
+            gear1.color="#4ce600";
+            gear2.color="#bbbbbb";
+            gear3.color="#bbbbbb";
             break;
         case 2:
-            gear0.color="white";
-            gear1.color="white";
-            gear2.color="green";
-            gear3.color="white";
+            gear0.color="#bbbbbb";
+            gear1.color="#bbbbbb";
+            gear2.color="#4ce600";
+            gear3.color="#bbbbbb";
             break;
         case 3:
-            gear0.color="white";
-            gear1.color="white";
-            gear2.color="white";
-            gear3.color="green";
+            gear0.color="#bbbbbb";
+            gear1.color="#bbbbbb";
+            gear2.color="#bbbbbb";
+            gear3.color="#4ce600";
+            break;
+        default:
+            gear0.color="#bbbbbb";
+            gear1.color="#bbbbbb";
+            gear2.color="#bbbbbb";
+            gear3.color="#bbbbbb";
             break;
         }
     }
@@ -144,18 +152,18 @@ ApplicationWindow {
         switch(index)
         {
         case 0:
-            gearTxt.text ="D";
-            break;
-        case 1:
-            gearTxt.text ="F";
-            break;
-        case 2:
-            gearTxt.text ="R";
-            break;
-        case 3:
             gearTxt.text ="N";
             break;
+        case 1:
+        case 2:
+        case 3:
+            gearTxt.text ="D";
+            break;
+        case 100:
+            gearTxt.text = "R";
+            break;
         }
+        showGearModeIndex(index);
     }
 
     CanUtil{
@@ -167,19 +175,26 @@ ApplicationWindow {
             mainPanel.middleGuage.speed = moveSpeed;
         }
 
+//        onSignalGearMode: {
+//            console.log("three gear set is :",value);
+//            var index = value;
+//            showGear(index);
+//        }
+
         onSignalGear: {
-            console.log("gear is :",value);
+            console.log("three gear set is :",value);
             var index = value;
             showGear(index);
         }
 
         onSignalRpm: {
             console.log("rpm is :",value);
-            mainPanel.middleGuage.value = value/100.0;//note: gauge has divided 10
+            var rpm = value;
+            mainPanel.middleGuage.value = rpm/100.0*10;//note: gauge has divided 10
         }
 
         onSignalPower: {
-
+           console.log("power is :",value);
         }
 
         onSignalReady:{
@@ -255,6 +270,31 @@ ApplicationWindow {
             console.log("trip is :",trip);
             mainPanel.tripmile =trip.toFixed(1);
         }
+
+        onSignalTime: {
+          console.log("time :",value);
+          headerPanel.time = value;
+        }
+
+        onSignalSideStandDrop:{
+           console.log("side stand drop is :",value);
+           var is_drop = value;
+           side_stand_img.visible = is_drop===1;
+
+        }
+
+        onSignalKIneEnergyRecovery:{
+             console.log("kinetic_energy_ercovery :",value);
+        }
+        onSignalPGear: {
+            console.log("P gear :",value);
+            if(value===1)
+            {
+                gearTxt.text="P";
+            }
+        }
+
+
     }
 
     Timer{

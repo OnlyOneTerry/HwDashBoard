@@ -137,7 +137,7 @@ Item {
         x:(parent.width-width)/2
         y:-45
         value: 0;
-        maximumValue: 120
+        maximumValue: 200
         Component.onCompleted: forceActiveFocus()
         Behavior on value { NumberAnimation { duration: 1000 }}
         Timer{

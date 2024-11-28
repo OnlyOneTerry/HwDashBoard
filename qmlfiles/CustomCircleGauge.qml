@@ -92,8 +92,8 @@ CircularGauge {
                         ctx.arc(outerRadius,
                                 outerRadius,
                                 outerRadius - 57,
-                                degreesToRadians(angle),
-                                degreesToRadians(endAngle));
+                                0,//degreesToRadians(angle),
+                                Math.PI*2);//degreesToRadians(endAngle));
                         ctx.stroke();
                     }
                 }
@@ -351,7 +351,7 @@ CircularGauge {
             id:foregroundArea
 
             Label{
-                text: "x1000/min"
+                text: "x100/min"//x1000/min
                 font.pixelSize: 25
                 font.family: "Inter"
                 color: "#FFFFFF"

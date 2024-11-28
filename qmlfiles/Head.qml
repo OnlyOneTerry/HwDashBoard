@@ -63,9 +63,9 @@ Rectangle {
     Timer{
         id:updateDateTimer
         interval: 1000
-        running: true
+        running: false
         repeat: true
-        onTriggered: /*date = Date().toLocaleString(Qt.locale(),"HH:mm");*/
+        onTriggered:
         {
             var currentTime = new Date();
             var hours = currentTime.getHours().toString().padStart(2, '0'); // 补零
