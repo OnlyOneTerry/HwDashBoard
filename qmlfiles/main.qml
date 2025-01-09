@@ -175,119 +175,119 @@ ApplicationWindow {
             mainPanel.middleGuage.speed = moveSpeed;
         }
 
-//        onSignalGearMode: {
-//            console.log("three gear set is :",value);
-//            var index = value;
-//            showGear(index);
-//        }
+        //        onSignalGearMode: {
+        //            console.log("three gear set is :",value);
+        //            var index = value;
+        //            showGear(index);
+        //        }
 
         onSignalGear: {
-            console.log("three gear set is :",value);
+            //console.log("three gear set is :",value);
             var index = value;
             showGear(index);
         }
 
         onSignalRpm: {
-            console.log("rpm is :",value);
+            //console.log("rpm is :",value);
             var rpm = value;
             mainPanel.middleGuage.value = rpm/100.0*10;//note: gauge has divided 10
         }
 
         onSignalPower: {
-           console.log("power is :",value);
+            //console.log("power is :",value);
         }
 
         onSignalReady:{
-            console.log("ready is:",value);
+            //console.log("ready is:",value);
             value ? readyLabel.color="#4ce600" : readyLabel.color="white";
         }
 
         onSignalRemainRange:
         {
-            console.log("remained range is :",value);
+            //console.log("remained range is :",value);
             var remain = value;//Math.random() * 100;
             headerPanel.remainMile = remain.toFixed(2);
         }
 
         onSignalRightTurnOn:
         {
-            console("right turn is:",value);
+            //console("right turn is:",value);
             mainPanel.rightTurnLight.on = value;
         }
 
         onSignalLeftTurnOn:
         {
-            console.log("left turn is:",value);
+            //console.log("left turn is:",value);
             mainPanel.leftTurnLight.on = value;
         }
 
         onSignalBatSoc:
         {
-            console.log("soc is :",value);
+            //console.log("soc is :",value);
             var soc = value ;//Math.random() * 100;
             soc = soc.toFixed(0);
             headerPanel.battery.batteryLevel = soc/100.0;
         }
 
         onSignalAutoHold: {
-            console.log("AutoHold is:",value);
+            //console.log("AutoHold is:",value);
         }
 
         onSignalBatteryOverHotWarning: {
-            console("batter is over hot:",value);
+            //console("batter is over hot:",value);
             mainPanel.is_battery_over_hot = value;
         }
 
         onSignalIsFarLight: {
-            console.log("far light is:",value);
+            //console.log("far light is:",value);
             mainPanel.is_far_light = value;
         }
 
         onSignalLimitPowerWarning:
         {
-            console.log("limit power is :",value);
+            //console.log("limit power is :",value);
             mainPanel.is_limit_power = value;
         }
 
         onSignalBatteryWarning: {
-            console.log("battery warning is:",value);
+            //console.log("battery warning is:",value);
             mainPanel.is_battery_warning = value;
         }
 
         onSignalPluginIn: {
-            console.log("plugged in is :",value);
+            //console.log("plugged in is :",value);
             mainPanel.middleGuage.is_plugged_in = value;
         }
 
         onSignalTotalMileage: {
-            console.log("total is :",value);
+            //console.log("total is :",value);
             var total =value ;
             mainPanel.odomile = total.toFixed(1);
         }
 
         onSignalTripMileage: {
             var trip = value;
-            console.log("trip is :",trip);
+            //console.log("trip is :",trip);
             mainPanel.tripmile =trip.toFixed(1);
         }
 
         onSignalTime: {
-          console.log("time :",value);
-          headerPanel.time = value;
+            //console.log("time :",value);
+            headerPanel.time = value;
         }
 
         onSignalSideStandDrop:{
-           console.log("side stand drop is :",value);
-           var is_drop = value;
-           side_stand_img.visible = is_drop===1;
+            //console.log("side stand drop is :",value);
+            var is_drop = value;
+            side_stand_img.visible = is_drop===1;
 
         }
 
         onSignalKIneEnergyRecovery:{
-             console.log("kinetic_energy_ercovery :",value);
+            //console.log("kinetic_energy_ercovery :",value);
         }
         onSignalPGear: {
-            console.log("P gear :",value);
+            //console.log("P gear :",value);
             if(value===1)
             {
                 gearTxt.text="P";
@@ -312,12 +312,45 @@ ApplicationWindow {
         }
     }
 
+    Timer{
+        id:timerHompage;
+        interval: 1000
+        running: false;
+        repeat: false
+
+        onTriggered: {
+            homePageAnima.running = true;
+        }
+    }
+
+
+    Image {
+        id: bgimg
+        width: parent.width
+        height: parent.height
+        source: "qrc:/img/bg.png";
+    }
+    // 动画：渐变显示指针
+    NumberAnimation {
+        id:homePageAnima
+        target: bgimg
+        property:"opacity"
+        from: 1
+        to: 0
+        duration: 4000
+        running: false
+    }
+
     Component.onCompleted: {
         var total = GlobalEnv.getTotalMiles();
         console.log("totalmile is :",total);
         mainPanel.odomile = total.toFixed(1);
 
+        timerHompage.start();
+
     }
+
+
 
 }
 

@@ -9,6 +9,11 @@ Rectangle {
     property int remainMile: 0
     property alias  battery: battery
 
+
+    property int frameCount: 0
+    property real lastTime: 0.0
+    property real frameRate: 0.0
+
     Rectangle{
         id:time_rect
         x:10
@@ -24,6 +29,38 @@ Rectangle {
             anchors.centerIn: parent;
             text: time;
         }
+
+
+        Timer {
+            id: timer
+            interval: 16 // 设置每帧的时间间隔，假设60FPS的帧间隔为16ms
+            running: true
+            repeat: true
+            onTriggered: {
+                // 增加帧数
+                frameCount++
+
+                // 计算时间差
+                var currentTime = Date.now() / 1000.0
+                var deltaTime = currentTime - lastTime
+
+                // 计算帧率
+                if (deltaTime >= 1.0) {
+                    frameRate = frameCount / deltaTime
+                    frameCount = 0
+                    lastTime = currentTime
+                }
+            }
+        }
+
+        Text {
+            text: "FPS: " + frameRate.toFixed(2)
+            font.pointSize: 12
+            x:100
+            y:0
+            color: "white"
+        }
+
     }
 
     Image {
@@ -73,5 +110,6 @@ Rectangle {
             time = hours + ":" + minutes; // 格式化为 HH:MM
         }
     }
+
 
 }

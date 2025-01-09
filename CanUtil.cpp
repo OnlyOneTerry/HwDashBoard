@@ -53,17 +53,17 @@ CanUtil::CanUtil()
     this->start();
 
       QTimer* timer = new QTimer();
-      timer->setInterval(200);
+      timer->setInterval(50);
       timer->setSingleShot(false);
       connect(timer,&QTimer::timeout,this,[=](){
-//          auto testval = rand()/100.0;
+          auto testval = rand()%2000;
 //          emit  signalSpeed(testval);
 //          emit signalReady(true);
 //          emit signalBatSoc(testval);
 //          emit signalRemainRange(testval);
-          //emit signalRpm(1300);
+          emit signalRpm(testval);
       });
-      //timer->start(100);
+      timer->start(1000);
 }
 
 CanUtil::~CanUtil()
